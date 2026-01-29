@@ -240,13 +240,11 @@
             background: #FFFFFF;
             border: 1.5px solid #E8E8E8;
             border-radius: 10px;
-            padding: 12px 14px;
-            margin-bottom: 8px;
+            padding: 14px 16px;
+            margin-bottom: 10px;
             cursor: pointer;
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
+            position: relative;
         }
 
         .checkbox-card:hover {
@@ -258,18 +256,31 @@
         .checkbox-card.checked {
             border-color: #0C0C0D;
             border-width: 2px;
-            padding: 11px 13px;
+            padding: 13px 15px;
             background: #FAFAFA;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
 
+        .checkbox-card.checked::before {
+            content: '✓';
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 22px;
+            height: 22px;
+            background: #0C0C0D;
+            color: #FFFFFF;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
         .checkbox-card input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-            accent-color: #0C0C0D;
-            margin-top: 1px;
-            flex-shrink: 0;
+            position: absolute;
+            opacity: 0;
         }
 
         .checkbox-content {
@@ -277,10 +288,13 @@
         }
 
         .checkbox-title {
+            font-size: 13px;
             font-weight: 600;
             color: #0C0C0D;
             margin-bottom: 3px;
-            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
             letter-spacing: -0.01em;
         }
 
@@ -822,43 +836,33 @@
                 <div class="checkbox-group">
                     <div class="checkbox-card" onclick="toggleCheckbox('pmSocietesFR')">
                         <input type="checkbox" id="pmSocietesFR">
-                        <div class="checkbox-content">
-                            <div class="checkbox-title">🇫🇷 Sociétés françaises classiques</div>
-                            <div class="checkbox-description">SAS, SARL, SA, etc. immatriculées au RCS</div>
-                        </div>
+                        <div class="checkbox-title">🇫🇷 Sociétés françaises classiques</div>
+                        <div class="checkbox-description">SAS, SARL, SA, etc. immatriculées au RCS</div>
                     </div>
 
                     <div class="checkbox-card" onclick="toggleCheckbox('pmSocietesETR')">
                         <input type="checkbox" id="pmSocietesETR">
-                        <div class="checkbox-content">
-                            <div class="checkbox-title">🌍 Sociétés étrangères classiques</div>
-                            <div class="checkbox-description">Sociétés immatriculées hors de France</div>
-                        </div>
+                        <div class="checkbox-title">🌍 Sociétés étrangères classiques</div>
+                        <div class="checkbox-description">Sociétés immatriculées hors de France</div>
                     </div>
 
                     <div class="checkbox-card" onclick="toggleCheckbox('pmFonds')">
                         <input type="checkbox" id="pmFonds">
-                        <div class="checkbox-content">
-                            <div class="checkbox-title">💼 Fonds d'investissement (France/UE uniquement)</div>
-                            <div class="checkbox-description">FCPR, FCPI, FIP, etc.<br>
-                            <strong style="color: #D32F2F;">⚠️ Fonds d'investissement hors UE ne sont pas acceptés dans le cadre des augmentations de capital</strong></div>
-                        </div>
+                        <div class="checkbox-title">💼 Fonds d'investissement (France/UE uniquement)</div>
+                        <div class="checkbox-description">FCPR, FCPI, FIP, etc.<br>
+                        <strong style="color: #D32F2F;">⚠️ Fonds d'investissement hors UE ne sont pas acceptés dans le cadre des augmentations de capital</strong></div>
                     </div>
 
                     <div class="checkbox-card" onclick="toggleCheckbox('pmAssociations')">
                         <input type="checkbox" id="pmAssociations">
-                        <div class="checkbox-content">
-                            <div class="checkbox-title">🤝 Associations (françaises ou étrangères)</div>
-                            <div class="checkbox-description">Associations loi 1901 (France) ou équivalent étranger</div>
-                        </div>
+                        <div class="checkbox-title">🤝 Associations (françaises ou étrangères)</div>
+                        <div class="checkbox-description">Associations loi 1901 (France) ou équivalent étranger</div>
                     </div>
 
                     <div class="checkbox-card" onclick="toggleCheckbox('pmFondations')">
                         <input type="checkbox" id="pmFondations">
-                        <div class="checkbox-content">
-                            <div class="checkbox-title">🏛️ Fondations (françaises ou étrangères)</div>
-                            <div class="checkbox-description">Fondations reconnues d'utilité publique (France) ou équivalent étranger</div>
-                        </div>
+                        <div class="checkbox-title">🏛️ Fondations (françaises ou étrangères)</div>
+                        <div class="checkbox-description">Fondations reconnues d'utilité publique (France) ou équivalent étranger</div>
                     </div>
                 </div>
 
