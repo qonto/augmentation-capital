@@ -1,0 +1,1850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capital Increase Documentation - Qonto</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', Roboto, sans-serif;
+            line-height: 1.4;
+            color: #0C0C0D;
+            background: #F7F7F7;
+            font-size: 13px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px 24px;
+        }
+
+        .header {
+            background: #FFFFFF;
+            padding: 20px 32px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 20px;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #0C0C0D;
+            letter-spacing: -0.02em;
+        }
+
+        .header p {
+            font-size: 13px;
+            color: #6B6B6B;
+            font-weight: 400;
+            line-height: 1.4;
+        }
+
+        .wizard-container {
+            background: #FFFFFF;
+            border-radius: 12px;
+            padding: 24px 32px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 28px;
+            position: relative;
+            padding: 0 24px;
+        }
+
+        .progress-bar::before {
+            content: '';
+            position: absolute;
+            top: 18px;
+            left: 24px;
+            right: 24px;
+            height: 2px;
+            background: #F0F0F0;
+            z-index: 1;
+        }
+
+        .progress-line {
+            position: absolute;
+            top: 18px;
+            left: 24px;
+            height: 2px;
+            background: #0C0C0D;
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 2;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            position: relative;
+            z-index: 3;
+        }
+
+        .step-number {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #FFFFFF;
+            color: #B0B0B0;
+            border: 2px solid #F0F0F0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+            margin-bottom: 12px;
+            font-size: 14px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .step.active .step-number {
+            background: #0C0C0D;
+            color: #FFFFFF;
+            border-color: #0C0C0D;
+        }
+
+        .step.completed .step-number {
+            background: #0C0C0D;
+            color: #FFFFFF;
+            border-color: #0C0C0D;
+        }
+
+        .step-label {
+            font-size: 13px;
+            color: #B0B0B0;
+            text-align: center;
+            font-weight: 400;
+        }
+
+        .step.active .step-label {
+            color: #0C0C0D;
+            font-weight: 500;
+        }
+
+        .question-section {
+            display: none;
+        }
+
+        .question-section.active {
+            display: block;
+            animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .question-title {
+            font-size: 17px;
+            color: #0C0C0D;
+            margin-bottom: 6px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            line-height: 1.3;
+        }
+
+        .question-subtitle {
+            color: #6B6B6B;
+            margin-bottom: 20px;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.4;
+        }
+
+        .option-card {
+            background: #FFFFFF;
+            border: 1.5px solid #E8E8E8;
+            border-radius: 10px;
+            padding: 14px 16px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .option-card:hover {
+            border-color: #0C0C0D;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .option-card.selected {
+            border-color: #0C0C0D;
+            border-width: 2px;
+            padding: 13px 15px;
+            background: #FAFAFA;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .option-card.selected::before {
+            content: '✓';
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 22px;
+            height: 22px;
+            background: #0C0C0D;
+            color: #FFFFFF;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .option-card input[type="radio"],
+        .option-card input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .option-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #0C0C0D;
+            margin-bottom: 3px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            letter-spacing: -0.01em;
+        }
+
+        .option-description {
+            color: #6B6B6B;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        .checkbox-group {
+            margin: 16px 0;
+        }
+
+        .checkbox-card {
+            background: #FFFFFF;
+            border: 1.5px solid #E8E8E8;
+            border-radius: 10px;
+            padding: 14px 16px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .checkbox-card:hover {
+            border-color: #0C0C0D;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .checkbox-card.checked {
+            border-color: #0C0C0D;
+            border-width: 2px;
+            padding: 13px 15px;
+            background: #FAFAFA;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .checkbox-card.checked::before {
+            content: '✓';
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 22px;
+            height: 22px;
+            background: #0C0C0D;
+            color: #FFFFFF;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .checkbox-card input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .checkbox-content {
+            flex: 1;
+        }
+
+        .checkbox-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #0C0C0D;
+            margin-bottom: 3px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            letter-spacing: -0.01em;
+        }
+
+        .checkbox-description {
+            color: #6B6B6B;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        .help-box {
+            background: #E8F4FD;
+            border: 1px solid #B8DFFB;
+            border-radius: 10px;
+            padding: 12px 16px;
+            margin: 16px 0;
+        }
+
+        .help-box > strong {
+            color: #0C0C0D;
+            display: block;
+            margin-bottom: 5px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .help-box p {
+            color: #0C0C0D;
+            margin: 3px 0;
+            line-height: 1.4;
+            font-size: 12px;
+        }
+
+        .help-box p strong {
+            color: inherit;
+            display: inline;
+        }
+
+        .help-box ul {
+            margin: 5px 0 5px 16px;
+            color: #0C0C0D;
+            font-size: 12px;
+        }
+
+        .help-box li {
+            margin: 3px 0;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid #F0F0F0;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            letter-spacing: -0.01em;
+            border: none;
+        }
+
+        .btn-primary {
+            background: #0C0C0D;
+            color: #FFFFFF;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: #1A1A1C;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transform: translateY(-1px);
+        }
+
+        .btn-primary:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: #FFFFFF;
+            color: #0C0C0D;
+            border: 1.5px solid #E8E8E8;
+            padding: 11px 23px;
+        }
+
+        .btn-secondary:hover {
+            background: #FAFAFA;
+            border-color: #0C0C0D;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transform: translateY(-1px);
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: #0C0C0D !important;
+            border: none;
+            border-radius: 8px;
+            color: #FFFFFF !important;
+            text-decoration: none;
+            font-size: 10px;
+            font-weight: 500;
+            margin-top: 8px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            letter-spacing: -0.01em;
+            cursor: pointer;
+        }
+
+        .download-btn:hover {
+            background: #1A1A1C !important;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .results-section {
+            display: none;
+        }
+
+        .results-section.active {
+            display: block;
+            animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .result-title {
+            font-size: 20px;
+            color: #0C0C0D;
+            margin-bottom: 8px;
+            text-align: center;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .result-subtitle {
+            text-align: center;
+            color: #6B6B6B;
+            margin-bottom: 28px;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .summary-box {
+            background: #FAFAFA;
+            border: 1px solid #E8E8E8;
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+
+        .summary-box h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #0C0C0D;
+            margin-bottom: 8px;
+            letter-spacing: -0.01em;
+        }
+
+        .summary-box ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .summary-box li {
+            color: #6B6B6B;
+            font-size: 12px;
+            padding: 4px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .summary-box li::before {
+            content: '•';
+            position: absolute;
+            left: 8px;
+            color: #0C0C0D;
+            font-weight: bold;
+        }
+
+        .doc-category {
+            background: #FFFFFF;
+            border: 1px solid #E8E8E8;
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+        }
+
+        .doc-category h3 {
+            color: #0C0C0D;
+            margin-bottom: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        .doc-category-pp {
+            background: #FFFFFF;
+            padding: 16px;
+            margin: 16px 0;
+            border-radius: 10px;
+            border: 1px solid #E8E8E8;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+        }
+
+        .doc-category-pp h3 {
+            color: #0C0C0D;
+            font-size: 15px;
+            font-weight: 600;
+            margin: 0 0 16px 0;
+            padding: 0 0 12px 0;
+            border-bottom: 1px solid #F0F0F0;
+            letter-spacing: -0.02em;
+        }
+
+        .doc-category-pm {
+            background: #FFFFFF;
+            padding: 16px;
+            margin: 16px 0;
+            border-radius: 10px;
+            border: 1px solid #E8E8E8;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+        }
+
+        .doc-category-pm h3 {
+            color: #0C0C0D;
+            font-size: 15px;
+            font-weight: 600;
+            margin: 0 0 16px 0;
+            padding: 0 0 12px 0;
+            border-bottom: 1px solid #F0F0F0;
+            letter-spacing: -0.02em;
+        }
+
+        .doc-item {
+            background: #FAFAFA;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #F0F0F0;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .doc-item:hover {
+            border-color: #E8E8E8;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            transform: translateY(-1px);
+        }
+
+        .doc-item-title {
+            font-weight: 500;
+            color: #0C0C0D;
+            margin-bottom: 5px;
+            font-size: 11px;
+            letter-spacing: -0.01em;
+        }
+
+        .doc-item-description {
+            color: #6B6B6B;
+            font-size: 11px;
+            line-height: 1.4;
+        }
+
+        .doc-item-description a {
+            color: #3275C4;
+            text-decoration: underline;
+            text-decoration-color: #B8DFFB;
+            transition: all 0.2s ease;
+        }
+
+        .doc-item-description a:hover {
+            color: #1E5A96;
+            text-decoration-color: #3275C4;
+        }
+
+        .doc-item-description a.download-btn,
+        a.download-btn {
+            text-decoration: none !important;
+        }
+
+        .doc-item-description a.download-btn:hover,
+        a.download-btn:hover {
+            text-decoration: none !important;
+        }
+
+        .doc-category-pp, .doc-category-pm {
+            min-width: 0;
+            overflow: hidden;
+            word-wrap: break-word;
+        }
+
+        .doc-category-pp > *, .doc-category-pm > * {
+            max-width: 100%;
+            overflow-wrap: break-word;
+        }
+
+        [style*="display: grid"] > div {
+            min-width: 0;
+            overflow: hidden;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+
+            .wizard-container {
+                box-shadow: none;
+            }
+
+            .button-group {
+                display: none;
+            }
+
+            .progress-bar {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 24px 16px;
+            }
+
+            .wizard-container {
+                padding: 24px 20px;
+            }
+
+            .header {
+                padding: 24px 20px;
+            }
+
+            .doc-category-pp, .doc-category-pm {
+                padding: 16px;
+            }
+
+            .progress-bar {
+                padding: 0 12px;
+            }
+
+            .progress-bar::before {
+                left: 12px;
+                right: 12px;
+            }
+
+            .progress-line {
+                left: 12px;
+            }
+
+            .step-label {
+                font-size: 12px;
+            }
+
+            .question-title {
+                font-size: 16px;
+            }
+
+            .option-card {
+                padding: 16px 18px;
+            }
+
+            .option-card.selected {
+                padding: 15px 17px;
+            }
+
+            body {
+                font-size: 13px;
+            }
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>📋 Capital Increase Documentation</h1>
+            <p>Answer a few questions to identify the exact documents required for your operation</p>
+        </div>
+
+        <!-- Wizard Container -->
+        <div class="wizard-container">
+
+            <!-- Progress bar for simple path (single holder) -->
+            <div class="progress-bar" id="progressBarSimple" style="display: none;">
+                <div class="progress-line" id="progressLineSimple"></div>
+                <div class="step" data-step="1">
+                    <div class="step-number">1</div>
+                    <div class="step-label">Situation</div>
+                </div>
+                <div class="step" data-step="2">
+                    <div class="step-number">2</div>
+                    <div class="step-label">Results</div>
+                </div>
+            </div>
+
+            <!-- Progress bar for full path (other cases) -->
+            <div class="progress-bar" id="progressBarFull">
+                <div class="progress-line" id="progressLineFull"></div>
+                <div class="step" data-step="1">
+                    <div class="step-number">1</div>
+                    <div class="step-label">Situation</div>
+                </div>
+                <div class="step" data-step="2">
+                    <div class="step-number">2</div>
+                    <div class="step-label">Type</div>
+                </div>
+                <div class="step" data-step="3">
+                    <div class="step-number">3</div>
+                    <div class="step-label">Details</div>
+                </div>
+                <div class="step" data-step="4">
+                    <div class="step-number">4</div>
+                    <div class="step-label">Results</div>
+                </div>
+            </div>
+
+            <!-- Question 1: Number of participants -->
+            <div class="question-section active" id="q1">
+                <h2 class="question-title">Who is participating in the capital increase?</h2>
+                <p class="question-subtitle">Select your situation</p>
+
+                <div class="option-card" onclick="selectOption('q1', 'single-holder')">
+                    <input type="radio" name="participants" value="single-holder" id="single-holder">
+                    <div class="option-title">👤 Single participant: the sole shareholder (natural person)</div>
+                    <div class="option-description">
+                        SASU/EURL — The shareholder holds 100% of the share capital before and after the operation
+                    </div>
+                </div>
+
+                <div class="option-card" onclick="selectOption('q1', 'other')">
+                    <input type="radio" name="participants" value="other" id="other">
+                    <div class="option-title">👥 Any other configuration</div>
+                    <div class="option-description">
+                        Any situation where the participant is not solely the sole shareholder as a natural person
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-primary" onclick="nextQuestion(1)" id="btn-q1" disabled>Next →</button>
+                </div>
+            </div>
+
+            <!-- Question 2: Type of participants -->
+            <div class="question-section" id="q2">
+                <h2 class="question-title">What type of participants?</h2>
+                <p class="question-subtitle">Select the composition of your capital increase</p>
+
+                <div class="option-card" onclick="selectOption('q2', 'pp')">
+                    <input type="radio" name="type" value="pp" id="pp">
+                    <div class="option-title">👤 Natural person(s) only</div>
+                    <div class="option-description">One or more individuals</div>
+                </div>
+
+                <div class="option-card" onclick="selectOption('q2', 'pm')">
+                    <input type="radio" name="type" value="pm" id="pm">
+                    <div class="option-title">🏢 Legal entity/entities only</div>
+                    <div class="option-description">One or more entities (companies, associations, funds, etc.)</div>
+                </div>
+
+                <div class="option-card" onclick="selectOption('q2', 'mix')">
+                    <input type="radio" name="type" value="mix" id="mix">
+                    <div class="option-title">👥 Mix of natural persons & legal entities</div>
+                    <div class="option-description">Individuals AND entities (at least one of each)</div>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-secondary" onclick="prevQuestion(2)">⬅️ Previous</button>
+                    <button class="btn btn-primary" onclick="nextQuestion(2)" id="btn-q2" disabled>Next →</button>
+                </div>
+            </div>
+
+            <!-- Question 3a: PP Details -->
+            <div class="question-section" id="q3-pp">
+                <h2 class="question-title">Question about natural persons</h2>
+                <p class="question-subtitle">One question to determine your required documents</p>
+
+                <div class="help-box">
+                    <strong>💡 What is a "beneficial owner" (UBO)?</strong>
+                    <p style="margin: 10px 0 5px 0;">A <strong style="display: inline;">beneficial owner (UBO)</strong> is a person who:</p>
+                    <ul>
+                        <li>Holds ≥ 25% of the share capital, OR</li>
+                        <li>Holds ≥ 25% of voting rights, OR</li>
+                        <li>Exercises effective control over the company (via shareholder agreements, pacts, or strategic management role)</li>
+                    </ul>
+                </div>
+
+                <div style="background: #fff; border: 1px solid #E5E7EB; border-radius: 12px; padding: 24px; margin: 24px 0;">
+                    <h3 style="color: #0C0C0D; margin-bottom: 16px; font-size: 0.9em;">📋 Your situation</h3>
+                    <p style="font-size: 0.9em; color: #1a1a1a; margin-bottom: 20px;">
+                        Will one or more participants become <strong>NEW beneficial owners</strong> of the company?
+                    </p>
+
+                    <div style="background: #f8f9fa; padding: 16px; border-radius: 8px; margin-bottom: 20px;">
+                        <strong style="color: #0C0C0D; display: block; margin-bottom: 8px;">⚠️ A "new" beneficial owner means:</strong>
+                        <p style="color: #666; margin: 0; line-height: 1.6; font-size: 0.95em;">
+                            The person was <strong>NOT</strong> a beneficial owner before the capital increase,
+                            and they become one after the operation (by meeting one of the criteria above).
+                        </p>
+                    </div>
+
+                    <div style="margin: 16px 0;">
+                        <div style="background: #FFFFFF; border: 2px solid #e0e0e0; border-radius: 10px; padding: 16px; margin-bottom: 12px; cursor: pointer; transition: all 0.3s ease;" onclick="selectPPAnswer('yes')" id="pp-yes-card">
+                            <label style="display: flex; align-items: center; cursor: pointer; margin: 0;">
+                                <input type="radio" name="ppNewBE" value="yes" id="ppNewBEYes" style="width: 24px; height: 24px; margin-right: 15px; cursor: pointer;" onchange="handlePPAnswer('yes')">
+                                <span style="font-size: 0.9em; font-weight: 600; color: #0C0C0D;">✅ YES, one or more participants will become a new beneficial owner</span>
+                            </label>
+                        </div>
+
+                        <div style="background: #FFFFFF; border: 2px solid #e0e0e0; border-radius: 10px; padding: 16px; cursor: pointer; transition: all 0.3s ease;" onclick="selectPPAnswer('no')" id="pp-no-card">
+                            <label style="display: flex; align-items: center; cursor: pointer; margin: 0;">
+                                <input type="radio" name="ppNewBE" value="no" id="ppNewBENo" style="width: 24px; height: 24px; margin-right: 15px; cursor: pointer;" onchange="handlePPAnswer('no')">
+                                <span style="font-size: 0.9em; font-weight: 600; color: #0C0C0D;">❌ NO, no participant is becoming a new beneficial owner</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-secondary" onclick="prevQuestion(3)">⬅️ Previous</button>
+                    <button class="btn btn-primary" id="ppContinueBtn" onclick="continuePPtoNext()" disabled>Continue →</button>
+                </div>
+            </div>
+
+            <!-- Question 3b: PM Types -->
+            <div class="question-section" id="q3-pm">
+                <h2 class="question-title">What types of entities are participating?</h2>
+                <p class="question-subtitle">Check all entity types involved</p>
+
+                <div class="checkbox-group">
+                    <div class="checkbox-card" onclick="toggleCheckbox('pmSocietesFR')">
+                        <input type="checkbox" id="pmSocietesFR">
+                        <div class="checkbox-title">🇫🇷 Standard French companies</div>
+                        <div class="checkbox-description">SAS, SARL, SA, etc. registered with the RCS (French Trade Register)</div>
+                    </div>
+
+                    <div class="checkbox-card" onclick="toggleCheckbox('pmSocietesETR')">
+                        <input type="checkbox" id="pmSocietesETR">
+                        <div class="checkbox-title">🌍 Foreign companies</div>
+                        <div class="checkbox-description">Companies incorporated outside France</div>
+                    </div>
+
+                    <div class="checkbox-card" onclick="toggleCheckbox('pmFonds')">
+                        <input type="checkbox" id="pmFonds">
+                        <div class="checkbox-title">💼 Investment funds (France/EU only)</div>
+                        <div class="checkbox-description">FCPR, FCPI, FIP, etc.<br>
+                        <strong style="color: #D32F2F;">⚠️ Investment funds outside the EU are not accepted in the context of capital increases</strong></div>
+                    </div>
+
+                    <div class="checkbox-card" onclick="toggleCheckbox('pmAssociations')">
+                        <input type="checkbox" id="pmAssociations">
+                        <div class="checkbox-title">🤝 Associations (French or foreign)</div>
+                        <div class="checkbox-description">Associations under the French law of 1901 or foreign equivalent</div>
+                    </div>
+
+                    <div class="checkbox-card" onclick="toggleCheckbox('pmFondations')">
+                        <input type="checkbox" id="pmFondations">
+                        <div class="checkbox-title">🏛️ Foundations (French or foreign)</div>
+                        <div class="checkbox-description">Foundations recognised as being of public utility (France) or foreign equivalent</div>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-secondary" onclick="prevQuestion(3)">⬅️ Previous</button>
+                    <button class="btn btn-primary" id="pmContinueBtn" onclick="generateResults()" disabled>View my documents →</button>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div class="results-section" id="results">
+                <h2 class="result-title">📋 Your Required Documents</h2>
+                <p class="result-subtitle">Here is the personalised list of documents to provide for your capital increase</p>
+
+                <div id="resultsContent"></div>
+
+                <!-- Final step section -->
+                <div style="background: #FAFAFA; border: 1px solid #E8E8E8; border-radius: 12px; padding: 28px; margin-top: 32px;">
+                    <h3 style="font-size: 16px; font-weight: 600; color: #0C0C0D; margin: 0 0 8px 0; letter-spacing: -0.02em;">
+                        🎯 Final step: prepare your submission
+                    </h3>
+
+                    <p style="color: #6B6B6B; font-size: 14px; line-height: 1.5; margin: 0 0 24px 0;">
+                        To ensure your file is processed quickly, please attach this checklist to your documents.
+                    </p>
+
+                    <!-- Step 1: Download -->
+                    <div style="display: flex; gap: 16px; margin-bottom: 20px; align-items: start;">
+                        <div style="background: #0C0C0D; color: white; border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 16px; flex-shrink: 0;">
+                            1
+                        </div>
+                        <div style="flex: 1; padding-top: 4px;">
+                            <div style="font-weight: 600; color: #0C0C0D; font-size: 14px; margin-bottom: 8px;">Download your document checklist</div>
+                            <div style="color: #6B6B6B; font-size: 13px; line-height: 1.5; margin-bottom: 12px;">
+                                This checklist contains all the required documents for your file.
+                            </div>
+                            <button onclick="downloadPDF()" style="background: #0C0C0D; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s ease;" onmouseover="this.style.background='#1A1A1C'; this.style.transform='translateY(-1px)'" onmouseout="this.style.background='#0C0C0D'; this.style.transform='translateY(0)'">
+                                📥 Download document checklist
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Submit -->
+                    <div style="display: flex; gap: 16px; margin-bottom: 20px; align-items: start;">
+                        <div style="background: #0C0C0D; color: white; border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 16px; flex-shrink: 0;">
+                            2
+                        </div>
+                        <div style="flex: 1; padding-top: 8px;">
+                            <div style="font-weight: 600; color: #0C0C0D; font-size: 14px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
+                                <span>📎</span>
+                                <span>Attach this checklist to all required documents</span>
+                            </div>
+                            <div style="color: #6B6B6B; font-size: 13px; line-height: 1.5;">
+                                Send all documents to <a href="mailto:qonto-ak@qonto.com" style="color: #3275C4; text-decoration: none; font-weight: 500;">qonto-ak@qonto.com</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Info note -->
+                    <div style="background: white; border: 1px solid #E8E8E8; border-radius: 8px; padding: 16px; margin: 0;">
+                        <div style="display: flex; align-items: start; gap: 10px;">
+                            <span style="font-size: 18px;">💡</span>
+                            <div style="color: #6B6B6B; font-size: 13px; line-height: 1.5;">
+                                An incomplete file will unfortunately result in additional processing delays.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 15px; margin-top: 24px; align-items: center;">
+                    <button class="btn btn-secondary" onclick="goBackFromResults()" id="backFromResultsBtn">⬅️ Go back</button>
+                    <button class="btn btn-secondary" onclick="restart()">🔄 Start over</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global state
+        let answers = {
+            participants: null,
+            type: null,
+            hasNewBE: null,
+            pmTypes: []
+        };
+
+        let currentStep = 1;
+
+        // Initialize
+        updateProgress();
+
+        // Option selection
+        function selectOption(question, value) {
+            const radio = document.getElementById(value);
+            radio.checked = true;
+
+            const cards = document.querySelectorAll(`#${question} .option-card`);
+            cards.forEach(card => card.classList.remove('selected'));
+            radio.closest('.option-card').classList.add('selected');
+
+            document.getElementById(`btn-${question}`).disabled = false;
+
+            if (question === 'q1') {
+                answers.participants = value;
+
+                if (value === 'single-holder') {
+                    document.getElementById('progressBarSimple').style.display = 'flex';
+                    document.getElementById('progressBarFull').style.display = 'none';
+                } else {
+                    document.getElementById('progressBarSimple').style.display = 'none';
+                    document.getElementById('progressBarFull').style.display = 'flex';
+                }
+
+                updateProgress();
+            } else if (question === 'q2') {
+                answers.type = value;
+            }
+        }
+
+        // Checkbox toggle
+        function toggleCheckbox(id) {
+            const checkbox = document.getElementById(id);
+            checkbox.checked = !checkbox.checked;
+
+            const card = checkbox.closest('.checkbox-card');
+            if (checkbox.checked) {
+                card.classList.add('checked');
+            } else {
+                card.classList.remove('checked');
+            }
+
+            if (id === 'hasNewBE') {
+                answers.hasNewBE = checkbox.checked;
+            } else if (id.startsWith('pm')) {
+                if (checkbox.checked) {
+                    answers.pmTypes.push(id);
+                } else {
+                    answers.pmTypes = answers.pmTypes.filter(t => t !== id);
+                }
+                updatePMContinueButton();
+            }
+        }
+
+        function updatePMContinueButton() {
+            const pmContinueBtn = document.getElementById('pmContinueBtn');
+            if (pmContinueBtn) {
+                if (answers.pmTypes.length > 0) {
+                    pmContinueBtn.disabled = false;
+                    pmContinueBtn.style.opacity = '1';
+                    pmContinueBtn.style.cursor = 'pointer';
+                } else {
+                    pmContinueBtn.disabled = true;
+                    pmContinueBtn.style.opacity = '0.5';
+                    pmContinueBtn.style.cursor = 'not-allowed';
+                }
+            }
+        }
+
+        function selectPPAnswer(answer) {
+            const radio = document.getElementById(answer === 'yes' ? 'ppNewBEYes' : 'ppNewBENo');
+            radio.checked = true;
+            handlePPAnswer(answer);
+        }
+
+        function handlePPAnswer(answer) {
+            const yesCard = document.getElementById('pp-yes-card');
+            const noCard = document.getElementById('pp-no-card');
+            const continueBtn = document.getElementById('ppContinueBtn');
+
+            if (answer === 'yes') {
+                yesCard.style.borderColor = '#705208';
+                yesCard.style.borderWidth = '3px';
+                noCard.style.borderColor = '#e0e0e0';
+                noCard.style.borderWidth = '2px';
+                answers.hasNewBE = true;
+            } else {
+                noCard.style.borderColor = '#7A250C';
+                noCard.style.borderWidth = '3px';
+                yesCard.style.borderColor = '#e0e0e0';
+                yesCard.style.borderWidth = '2px';
+                answers.hasNewBE = false;
+            }
+
+            continueBtn.disabled = false;
+            continueBtn.style.opacity = '1';
+            continueBtn.style.cursor = 'pointer';
+        }
+
+        // Navigation
+        function nextQuestion(current) {
+            window.scrollTo(0, 0);
+            document.getElementById(`q${current}`).classList.remove('active');
+
+            if (current === 1) {
+                if (answers.participants === 'single-holder') {
+                    showResults();
+                    return;
+                } else if (answers.participants === 'other') {
+                    currentStep = 2;
+                    document.getElementById('q2').classList.add('active');
+                }
+            } else if (current === 2) {
+                currentStep = 3;
+                if (answers.type === 'pp' || answers.type === 'mix') {
+                    document.getElementById('q3-pp').classList.add('active');
+                } else {
+                    document.getElementById('q3-pm').classList.add('active');
+                }
+            }
+
+            updateProgress();
+        }
+
+        function continuePPtoNext() {
+            window.scrollTo(0, 0);
+            if (answers.type === 'mix') {
+                document.getElementById('q3-pp').classList.remove('active');
+                document.getElementById('q3-pm').classList.add('active');
+            } else {
+                generateResults();
+            }
+        }
+
+        function prevQuestion(current) {
+            window.scrollTo(0, 0);
+            document.querySelector('.question-section.active').classList.remove('active');
+
+            if (current === 2) {
+                currentStep = 1;
+                document.getElementById('q1').classList.add('active');
+            } else if (current === 3) {
+                currentStep = 2;
+                document.getElementById('q2').classList.add('active');
+            }
+
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const isSimplePath = answers.participants === 'single-holder';
+            const activeProgressBar = isSimplePath ? 'progressBarSimple' : 'progressBarFull';
+            const progressLineId = isSimplePath ? 'progressLineSimple' : 'progressLineFull';
+
+            const progressBar = document.getElementById(activeProgressBar);
+            if (progressBar) {
+                progressBar.querySelectorAll('.step').forEach(step => {
+                    const stepNum = parseInt(step.dataset.step);
+                    step.classList.remove('active', 'completed');
+
+                    if (stepNum === currentStep) {
+                        step.classList.add('active');
+                    } else if (stepNum < currentStep) {
+                        step.classList.add('completed');
+                    }
+                });
+
+                const maxSteps = isSimplePath ? 1 : 3;
+                const progress = ((currentStep - 1) / maxSteps) * 100;
+                const progressLine = document.getElementById(progressLineId);
+                if (progressLine) {
+                    progressLine.style.width = progress + '%';
+                }
+            }
+        }
+
+        function showResults() {
+            currentStep = answers.participants === 'single-holder' ? 2 : 4;
+            document.querySelectorAll('.question-section').forEach(q => q.classList.remove('active'));
+            generateResults();
+        }
+
+        // Results generation
+        function generateResults() {
+            window.scrollTo(0, 0);
+
+            currentStep = answers.participants === 'single-holder' ? 2 : 4;
+            updateProgress();
+
+            document.querySelectorAll('.question-section').forEach(q => q.classList.remove('active'));
+            document.getElementById('results').classList.add('active');
+
+            let html = '';
+
+            if (answers.participants === 'single-holder') {
+                html += `
+                    <div class="summary-box">
+                        <h4>📊 Your situation</h4>
+                        <ul>
+                            <li>Sole shareholder (natural person) — SASU/EURL</li>
+                            <li>Holding 100% of share capital before and after the operation</li>
+                        </ul>
+                    </div>
+
+                    <div style="background: white; border: 1px solid #E5E7EB; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 20px;">
+                        <div style="background: #3275C4; color: white; padding: 10px 16px;">
+                            <h4 style="margin: 0; font-size: 0.95em; font-weight: 600;">📋 Documents to provide</h4>
+                        </div>
+                        <div style="padding: 16px; background: white;">
+                            <div style="margin-bottom: 16px;">
+                                <div style="font-weight: 600; color: #000000; margin-bottom: 5px; display: flex; align-items: center; gap: 8px; font-size: 11px;">
+                                    <span style="color: #000000; font-size: 1.2em;">✓</span>
+                                    <span>Valid proof of identity</span>
+                                </div>
+                                <div style="color: #64748B; font-size: 11px; line-height: 1.4; margin-left: 26px;">
+                                    Only required if your identity document has expired since your account was opened
+                                    <br>
+                                    <a href="https://support-fr.qonto.com/hc/en-us/articles/38720641656977-What-documents-are-required-from-natural-persons-in-the-context-of-a-capital-increase-in-France#h_01K59JCNX3ZP6NZFH8RWGR1RAS" target="_blank" style="color: #3275C4;">See which identity documents are accepted</a>
+                                </div>
+                            </div>
+
+                            <div style="margin-bottom: 16px;">
+                                <div style="font-weight: 600; color: #000000; margin-bottom: 5px; display: flex; align-items: center; gap: 8px; font-size: 11px;">
+                                    <span style="color: #000000; font-size: 1.2em;">✓</span>
+                                    <span>Source of funds declaration</span>
+                                </div>
+                                <div style="color: #64748B; font-size: 11px; line-height: 1.4; margin-left: 26px;">
+                                    Form to be completed, signed and returned to Qonto
+                                    <br>
+                                    <a href="documents/source_of_funds_declaration_individual.pdf" download class="download-btn" style="font-size: 10px;">📥 Download the form</a>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div style="font-weight: 600; color: #000000; margin-bottom: 5px; display: flex; align-items: center; gap: 8px; font-size: 11px;">
+                                    <span style="color: #000000; font-size: 1.2em;">✓</span>
+                                    <span>Documentary proof of source of funds</span>
+                                </div>
+                                <div style="color: #64748B; font-size: 11px; line-height: 1.4; margin-left: 26px;">
+                                    Document evidencing the origin of the invested funds (e.g. payslips, tax assessment notice, property sale deed, etc.)
+                                    <br>
+                                    <a href="https://support-fr.qonto.com/hc/en-us/articles/38738891662737-What-documents-can-be-provided-as-proof-of-origin-of-funds#h_01K59MEBM6FGEZA74ZX5Q9E2JG" target="_blank" style="color: #3275C4;">See which supporting documents are accepted</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                html += '<div class="summary-box"><h4>📊 Your situation</h4><ul>';
+
+                if (answers.type === 'pp') {
+                    html += '<li>Natural persons only</li>';
+                } else if (answers.type === 'pm') {
+                    html += '<li>Legal entities only</li>';
+                    if (answers.pmTypes && answers.pmTypes.length > 0) {
+                        html += '<li style="margin-left: 20px; list-style: none;">→ Entity types: ';
+                        const pmTypeLabels = {
+                            'pmSocietesFR': 'French companies',
+                            'pmSocietesETR': 'Foreign companies',
+                            'pmFonds': 'Investment funds',
+                            'pmAssociations': 'Associations',
+                            'pmFondations': 'Foundations'
+                        };
+                        const selectedLabels = answers.pmTypes.map(type => pmTypeLabels[type]).join(', ');
+                        html += selectedLabels + '</li>';
+                    }
+                } else {
+                    html += '<li>Mix of natural persons and legal entities</li>';
+                    if (answers.pmTypes && answers.pmTypes.length > 0) {
+                        html += '<li style="margin-left: 20px; list-style: none;">→ Entity types: ';
+                        const pmTypeLabels = {
+                            'pmSocietesFR': 'French companies',
+                            'pmSocietesETR': 'Foreign companies',
+                            'pmFonds': 'Investment funds',
+                            'pmAssociations': 'Associations',
+                            'pmFondations': 'Foundations'
+                        };
+                        const selectedLabels = answers.pmTypes.map(type => pmTypeLabels[type]).join(', ');
+                        html += selectedLabels + '</li>';
+                    }
+                }
+
+                if (answers.hasNewBE) html += '<li>With new beneficial owners</li>';
+
+                html += '</ul></div>';
+
+                if (answers.type === 'pp') {
+                    html += generatePPResults();
+                } else if (answers.type === 'mix') {
+                    html += '<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 16px; align-items: start;">';
+                    html += '<div>' + generatePPResults() + '</div>';
+                    html += '<div>' + generatePMResults() + '</div>';
+                    html += '</div>';
+                }
+
+                if (answers.type === 'pm') {
+                    html += generatePMResults();
+                }
+            }
+
+            document.getElementById('resultsContent').innerHTML = html;
+
+            const backBtn = document.getElementById('backFromResultsBtn');
+            if (backBtn) {
+                if (answers.participants === 'single-holder') {
+                    backBtn.style.display = 'none';
+                } else {
+                    backBtn.style.display = 'inline-block';
+                }
+            }
+        }
+
+        function generatePPResults() {
+            let html = '<div class="doc-category-pp"><h3>👤 Natural Persons</h3>';
+
+            html += `
+                <div style="background: white; border: 1px solid #E5E7EB; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 20px;">
+                    <div style="background: #3275C4; color: white; padding: 10px 16px;">
+                        <h4 style="margin: 0; font-size: 0.95em; font-weight: 600;">📋 Documents required for ALL natural person participants</h4>
+                    </div>
+                    <div style="padding: 16px; background: white;">
+                        <div style="margin-bottom: 16px;">
+                            <div style="font-weight: 600; color: #000000; margin-bottom: 5px; display: flex; align-items: center; gap: 8px; font-size: 11px;">
+                                <span style="color: #000000; font-size: 1.2em;">✓</span>
+                                <span>Source of funds declaration</span>
+                            </div>
+                            <div style="color: #64748B; font-size: 11px; line-height: 1.4; margin-left: 26px;">
+                                This form must be completed and signed by <strong>each natural person</strong> participating in the operation (each participant completes their own form).
+                                <br>
+                                <a href="documents/source_of_funds_declaration_individual.pdf" download class="download-btn" style="font-size: 10px;">📥 Download the form</a>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="font-weight: 600; color: #000000; margin-bottom: 5px; display: flex; align-items: center; gap: 8px; font-size: 11px;">
+                                <span style="color: #000000; font-size: 1.2em;">✓</span>
+                                <span>Valid proof of identity</span>
+                            </div>
+                            <div style="color: #64748B; font-size: 11px; line-height: 1.4; margin-left: 26px;">
+                                Required if identity was not verified at account opening or if the previously submitted document has expired.
+                                <br>
+                                <a href="https://support-fr.qonto.com/hc/en-us/articles/38720641656977-What-documents-are-required-from-natural-persons-in-the-context-of-a-capital-increase-in-France#h_01K59JCNX3ZP6NZFH8RWGR1RAS" target="_blank" style="color: #3275C4;">See which identity documents are accepted</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            html += `
+                <div style="background: white; border: 1px solid #E5E7EB; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-top: 20px;">
+                    <div style="background: #F0E060; color: #1a1a1a; padding: 10px 16px;">
+                        <h4 style="margin: 0; font-size: 0.95em; font-weight: 600;">📝 Additional document for natural persons holding ≥ 25% of share capital AFTER the capital increase</h4>
+                    </div>
+                    <div style="padding: 16px; background: white;">
+                        <div style="font-weight: 600; color: #000000; margin-bottom: 5px; display: flex; align-items: center; gap: 8px; font-size: 11px;">
+                            <span style="color: #000000; font-size: 1.2em;">✓</span>
+                            <span>Documentary proof of source of funds</span>
+                        </div>
+                        <div style="color: #64748B; font-size: 11px; line-height: 1.4; margin-left: 26px;">
+                            Document evidencing the origin of the invested funds (e.g. payslips, tax assessment notice, property sale deed, etc.)
+                            <br>
+                            <a href="https://support-fr.qonto.com/hc/en-us/articles/38738891662737-What-documents-can-be-provided-as-proof-of-origin-of-funds#h_01K59MEBM6FGEZA74ZX5Q9E2JG" target="_blank" style="color: #3275C4;">See which supporting documents are accepted</a>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            if (answers.hasNewBE) {
+                html += `
+                    <div style="background: white; border: 1px solid #E5E7EB; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-top: 20px;">
+                        <div style="background: #F0E060; color: #1a1a1a; padding: 10px 16px;">
+                            <h4 style="margin: 0; font-size: 0.95em; font-weight: 600;">📝 Additional document for new beneficial owners</h4>
+                        </div>
+                        <div style="padding: 16px; background: white;">
+                            <div style="font-weight: 600; color: #000000; margin-bottom: 5px; display: flex; align-items: center; gap: 8px; font-size: 11px;">
+                                <span style="color: #000000; font-size: 1.2em;">✓</span>
+                                <span>Beneficial owner self-declaration form</span>
+                            </div>
+                            <div style="color: #64748B; font-size: 11px; line-height: 1.4; margin-left: 26px;">
+                                This form must be completed and signed by <strong>each person</strong> becoming a new beneficial owner as a result of this operation (i.e. persons who were NOT beneficial owners before the operation and who become one after it).
+                                <br>
+                                <a href="documents/beneficial_owner_self_declaration_form.pdf" download class="download-btn" style="font-size: 10px;">📥 Download the form</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            html += '</div>';
+            return html;
+        }
+
+        function generatePMResults() {
+            let html = '<div class="doc-category-pm"><h3>🏢 Legal Entities</h3>';
+
+            const hasNonFundEntities = answers.pmTypes.some(type => type !== 'pmFonds');
+
+            if (hasNonFundEntities) {
+                html += `
+                    <div style="background: white; border: 1px solid #E5E7EB; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-top: 24px; margin-bottom: 20px;">
+                        <div style="background: #3275C4; color: white; padding: 10px 16px;">
+                            <h4 style="margin: 0; font-size: 0.95em; font-weight: 600;">📋 Document required for ALL legal entity participants</h4>
+                        </div>
+                        <div style="padding: 16px; background: white;">
+                            <div style="font-weight: 600; color: #000000; margin-bottom: 5px; display: flex; align-items: center; gap: 8px; font-size: 11px;">
+                                <span style="color: #000000; font-size: 1.2em;">✓</span>
+                                <span>Source of funds declaration</span>
+                            </div>
+                            <div style="color: #64748B; font-size: 11px; line-height: 1.4; margin-left: 26px;">
+                                This document must be completed and signed by <strong>each legal entity</strong> participating in the operation (each participant completes their own form).
+                                <br>
+                                <a href="documents/source_of_funds_declaration_entity.pdf" download class="download-btn" style="font-size: 10px;">📥 Download the form</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            if (answers.pmTypes.includes('pmSocietesFR')) {
+                html += generateSocietesFRTable();
+            }
+            if (answers.pmTypes.includes('pmSocietesETR')) {
+                html += generateSocietesETRTable();
+            }
+            if (answers.pmTypes.includes('pmFonds')) {
+                html += generateFondsTable();
+            }
+            if (answers.pmTypes.includes('pmAssociations')) {
+                html += generateAssociationsTable();
+            }
+            if (answers.pmTypes.includes('pmFondations')) {
+                html += generateFondationsTable();
+            }
+
+            html += '</div>';
+            return html;
+        }
+
+        function generateSocietesFRTable() {
+            return `
+                <div style="margin: 24px 0;">
+                    <div style="background: white; border: 1px solid #E5E7EB; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                        <div style="background: #6B7280; color: white; padding: 10px 16px;">
+                            <h4 style="margin: 0; font-size: 0.95em; font-weight: 600;">🇫🇷 Documents required for French companies</h4>
+                        </div>
+                        <div style="padding: 16px;">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: start;">
+                                <div style="background: #fafbfc; padding: 12px; border-radius: 6px; border: 3px solid #D1D5DB;">
+                                    <div style="font-size: 0.9em; font-weight: 600; color: #475569; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 2px solid #D1D5DB;">
+                                        For a company <strong>holding &lt; 25%</strong> of share capital after the operation
+                                    </div>
+                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Kbis extract / INPI / Pappers (< 3 months)</div>
+                                    </div>
+                                    <div style="padding: 5px 0;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Proof of identity of the legal representative</div>
+                                    </div>
+                                </div>
+
+                                <div style="background: #fafbfc; padding: 12px; border-radius: 6px; border: 3px solid #6B7280;">
+                                    <div style="font-size: 0.9em; font-weight: 600; color: #475569; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 2px solid #6B7280;">
+                                        For a company <strong>holding ≥ 25%</strong> of share capital after the operation
+                                    </div>
+                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Kbis extract / INPI / Pappers (< 3 months)</div>
+                                    </div>
+                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Proof of identity of the legal representative</div>
+                                    </div>
+                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Powers of the legal representative</div>
+                                    </div>
+                                    <div style="padding: 5px 0;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Documentary proof of source of funds</div>
+                                        <div style="color: #64748b; font-size: 11px; margin-top: 2px; margin-left: 20px;">
+                                            Document evidencing the origin of the invested funds (e.g. annual accounts, asset transfer deed, grant notification, etc.)
+                                            <br>
+                                            <a href="https://support-fr.qonto.com/hc/en-us/articles/38738891662737-What-documents-can-be-provided-as-proof-of-origin-of-funds#h_01K59MEBMCKGX1M0NWH9SP5RVP" target="_blank" style="color: #3275C4;">See which supporting documents are accepted</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateSocietesETRTable() {
+            return `
+                <div style="margin: 32px 0;">
+                    <div style="background: white; border: 1px solid #E5E7EB; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                        <div style="background: #6B7280; color: white; padding: 12px 20px;">
+                            <h4 style="margin: 0; font-size: 1em; font-weight: 600;">🌍 Documents required for foreign companies</h4>
+                        </div>
+                        <div style="padding: 20px;">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start;">
+                                <div style="background: #fafbfc; padding: 16px; border-radius: 8px; border: 3px solid #D1D5DB;">
+                                    <div style="font-size: 0.95em; font-weight: 600; color: #475569; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #D1D5DB;">
+                                        For a company <strong>holding &lt; 25%</strong> of share capital after the operation
+                                    </div>
+                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Certificate of incorporation (< 3 months, translated into French)</div>
+                                    </div>
+                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Recent official document proving the entity is not subject to insolvency, bankruptcy or liquidation proceedings (dated current month or previous month)</div>
+                                    </div>
+                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Up-to-date articles of association</div>
+                                    </div>
+                                    <div style="padding: 5px 0;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Proof of identity of the legal representative</div>
+                                    </div>
+                                </div>
+
+                                <div style="background: #fafbfc; padding: 16px; border-radius: 8px; border: 3px solid #6B7280;">
+                                    <div style="font-size: 0.95em; font-weight: 600; color: #475569; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #6B7280;">
+                                        For a company <strong>holding ≥ 25%</strong> of share capital after the operation
+                                    </div>
+                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Certificate of incorporation (< 3 months, translated into French)</div>
+                                    </div>
+                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Recent official document proving the entity is not subject to insolvency, bankruptcy or liquidation proceedings (dated current month or previous month)</div>
+                                    </div>
+                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Up-to-date articles of association</div>
+                                    </div>
+                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Tax identification number + LEI if applicable</div>
+                                    </div>
+                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Register of directors / officers</div>
+                                    </div>
+                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Full organisational chart</div>
+                                    </div>
+                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Signatory powers</div>
+                                    </div>
+                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Ownership structure (up to UBOs ≥ 25%)</div>
+                                    </div>
+                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Annual accounts (last 3 years)</div>
+                                    </div>
+                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Documentary proof of source of funds</div>
+                                        <div style="color: #64748b; font-size: 11px; margin-top: 2px; margin-left: 20px;">
+                                            Document evidencing the origin of the invested funds (e.g. annual accounts, asset transfer deed, grant notification, etc.)
+                                            <br>
+                                            <a href="https://support-fr.qonto.com/hc/en-us/articles/38738891662737-What-documents-can-be-provided-as-proof-of-origin-of-funds#h_01K59MEBMCKGX1M0NWH9SP5RVP" target="_blank" style="color: #3275C4;">See which supporting documents are accepted</a>
+                                        </div>
+                                    </div>
+                                    <div style="padding: 5px 0;">
+                                        <div style="background: #f8f9fa; padding: 6px; border-radius: 4px;">
+                                            <strong style="display: block; margin-bottom: 2px; font-size: 11px;">For each beneficial owner (UBO) ≥ 25%:</strong>
+                                            <span style="color: #000000; font-size: 11px;">✓ Proof of identity</span><br>
+                                            <span style="color: #000000; font-size: 11px;">✓ Proof of address</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateFondsTable() {
+            return `
+                <div style="margin: 32px 0;">
+                    <div style="background: white; border: 1px solid #E5E7EB; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                        <div style="background: #6B7280; color: white; padding: 12px 20px;">
+                            <h4 style="margin: 0; font-size: 1em; font-weight: 600;">💼 Documents required for investment funds</h4>
+                        </div>
+                        <div style="padding: 20px;">
+                            <div style="background: #E0E0E0; border-left: 5px solid #7E0F4C; padding: 12px; border-radius: 8px; margin-bottom: 16px;">
+                                <strong style="color: #7E0F4C; font-size: 0.95em;">🚫 IMPORTANT</strong>
+                                <p style="color: #7E0F4C; margin: 4px 0 0 0; font-size: 0.9em;">Investment funds outside the EU are NOT accepted</p>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start;">
+                                <div style="background: #fafbfc; padding: 16px; border-radius: 8px; border: 3px solid #D1D5DB;">
+                                    <div style="font-size: 0.95em; font-weight: 600; color: #475569; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #D1D5DB;">
+                                        For a fund <strong>holding &lt; 25%</strong> of share capital after the operation
+                                    </div>
+                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Fund prospectus (translated into French)</div>
+                                    </div>
+                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Certificate of incorporation of the <strong>management company</strong> (< 3 months, translated into French)</div>
+                                    </div>
+                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Recent official document proving the <strong>management company</strong> is not subject to insolvency, bankruptcy or liquidation proceedings (dated current month or previous month)</div>
+                                    </div>
+                                    <div style="padding: 5px 0;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Proof of identity of the management company representative</div>
+                                    </div>
+                                </div>
+
+                                <div style="background: #fafbfc; padding: 16px; border-radius: 8px; border: 3px solid #6B7280;">
+                                    <div style="font-size: 0.95em; font-weight: 600; color: #475569; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #6B7280;">
+                                        For a fund <strong>holding ≥ 25%</strong> of share capital after the operation
+                                    </div>
+                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Fund prospectus (translated into French)</div>
+                                    </div>
+                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Name of the fund manager</div>
+                                    </div>
+                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Certificate of incorporation of the <strong>management company</strong> (< 3 months, translated into French)</div>
+                                    </div>
+                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Recent official document proving the <strong>management company</strong> is not subject to insolvency, bankruptcy or liquidation proceedings (dated current month or previous month)</div>
+                                    </div>
+                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Proof of management company authorisation (AMF / EU regulator)</div>
+                                    </div>
+                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Proof of identity of the representative</div>
+                                    </div>
+                                    <div style="padding: 5px 0;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Documentary proof of source of funds</div>
+                                        <div style="color: #64748b; font-size: 11px; margin-top: 2px; margin-left: 20px;">
+                                            Document evidencing the origin of the invested funds (e.g. annual accounts, asset transfer deed, grant notification, etc.)
+                                            <br>
+                                            <a href="https://support-fr.qonto.com/hc/en-us/articles/38738891662737-What-documents-can-be-provided-as-proof-of-origin-of-funds#h_01K59MEBMCKGX1M0NWH9SP5RVP" target="_blank" style="color: #3275C4;">See which supporting documents are accepted</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateAssociationsTable() {
+            return `
+                <div style="margin: 32px 0;">
+                    <div style="background: white; border: 1px solid #E5E7EB; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                        <div style="background: #6B7280; color: white; padding: 12px 20px;">
+                            <h4 style="margin: 0; font-size: 1em; font-weight: 600;">🤝 Documents required for associations</h4>
+                        </div>
+                        <div style="padding: 20px;">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start;">
+                                <div style="background: #fafbfc; padding: 16px; border-radius: 8px; border: 3px solid #D1D5DB;">
+                                    <div style="font-size: 0.95em; font-weight: 600; color: #475569; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #D1D5DB;">
+                                        For an association <strong>holding &lt; 25%</strong> of share capital after the operation
+                                    </div>
+                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ INSEE notice (FR) or equivalent (translated into French)</div>
+                                    </div>
+                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Recent official document proving the entity is not subject to insolvency, bankruptcy or liquidation proceedings (dated current month or previous month)</div>
+                                    </div>
+                                    <div style="padding: 5px 0;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Up-to-date articles of association / bylaws</div>
+                                    </div>
+                                </div>
+
+                                <div style="background: #fafbfc; padding: 16px; border-radius: 8px; border: 3px solid #6B7280;">
+                                    <div style="font-size: 0.95em; font-weight: 600; color: #475569; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #6B7280;">
+                                        For an association <strong>holding ≥ 25%</strong> of share capital after the operation
+                                    </div>
+                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ INSEE notice or equivalent (translated into French)</div>
+                                    </div>
+                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Up-to-date articles of association / bylaws</div>
+                                    </div>
+                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Declaration receipt (récépissé de déclaration)</div>
+                                    </div>
+                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Recent official document proving the entity is not subject to insolvency, bankruptcy or liquidation proceedings (dated current month or previous month)</div>
+                                    </div>
+                                    <div style="padding: 5px 0;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Documentary proof of source of funds</div>
+                                        <div style="color: #64748b; font-size: 11px; margin-top: 2px; margin-left: 20px;">
+                                            Document evidencing the origin of the invested funds (e.g. annual accounts, asset transfer deed, grant notification, etc.)
+                                            <br>
+                                            <a href="https://support-fr.qonto.com/hc/en-us/articles/38738891662737-What-documents-can-be-provided-as-proof-of-origin-of-funds#h_01K59MEBMCKGX1M0NWH9SP5RVP" target="_blank" style="color: #3275C4;">See which supporting documents are accepted</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateFondationsTable() {
+            return `
+                <div style="margin: 32px 0;">
+                    <div style="background: white; border: 1px solid #E5E7EB; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                        <div style="background: #6B7280; color: white; padding: 12px 20px;">
+                            <h4 style="margin: 0; font-size: 1em; font-weight: 600;">🏛️ Documents required for foundations</h4>
+                        </div>
+                        <div style="padding: 20px;">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start;">
+                                <div style="background: #fafbfc; padding: 16px; border-radius: 8px; border: 3px solid #D1D5DB;">
+                                    <div style="font-size: 0.95em; font-weight: 600; color: #475569; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #D1D5DB;">
+                                        For a foundation <strong>holding &lt; 25%</strong> of share capital after the operation
+                                    </div>
+                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Deed of constitution / charter (translated into French)</div>
+                                    </div>
+                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Recent official document proving the entity is not subject to insolvency, bankruptcy or liquidation proceedings (dated current month or previous month)</div>
+                                    </div>
+                                    <div style="padding: 5px 0;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Up-to-date statutes / bylaws</div>
+                                    </div>
+                                </div>
+
+                                <div style="background: #fafbfc; padding: 16px; border-radius: 8px; border: 3px solid #6B7280;">
+                                    <div style="font-size: 0.95em; font-weight: 600; color: #475569; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #6B7280;">
+                                        For a foundation <strong>holding ≥ 25%</strong> of share capital after the operation
+                                    </div>
+                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Deed of constitution / charter (translated into French)</div>
+                                    </div>
+                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Certificate of registration</div>
+                                    </div>
+                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Recent official document proving the entity is not subject to insolvency, bankruptcy or liquidation proceedings (dated current month or previous month)</div>
+                                    </div>
+                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Tax identification number</div>
+                                    </div>
+                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Statutes + list of members</div>
+                                    </div>
+                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Objectives and purpose</div>
+                                    </div>
+                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Proof of identity + proof of address of members</div>
+                                    </div>
+                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Annual accounts + tax returns</div>
+                                    </div>
+                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Full organisational chart</div>
+                                    </div>
+                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Beneficial owner declaration</div>
+                                    </div>
+                                    <div style="padding: 5px 0;">
+                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Documentary proof of source of funds</div>
+                                        <div style="color: #64748b; font-size: 11px; margin-top: 2px; margin-left: 20px;">
+                                            Document evidencing the origin of the invested funds (e.g. annual accounts, asset transfer deed, grant notification, etc.)
+                                            <br>
+                                            <a href="https://support-fr.qonto.com/hc/en-us/articles/38738891662737-What-documents-can-be-provided-as-proof-of-origin-of-funds#h_01K59MEBMCKGX1M0NWH9SP5RVP" target="_blank" style="color: #3275C4;">See which supporting documents are accepted</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function restart() {
+            window.scrollTo(0, 0);
+
+            answers = {
+                participants: null,
+                type: null,
+                hasNewBE: null,
+                pmTypes: []
+            };
+
+            currentStep = 1;
+            document.querySelectorAll('.option-card').forEach(card => card.classList.remove('selected'));
+            document.querySelectorAll('.checkbox-card').forEach(card => card.classList.remove('checked'));
+            document.querySelectorAll('input[type="radio"]').forEach(input => input.checked = false);
+            document.querySelectorAll('input[type="checkbox"]').forEach(input => input.checked = false);
+
+            const ppContinueBtn = document.getElementById('ppContinueBtn');
+            const pmContinueBtn = document.getElementById('pmContinueBtn');
+            if (ppContinueBtn) {
+                ppContinueBtn.disabled = true;
+                ppContinueBtn.style.opacity = '0.5';
+                ppContinueBtn.style.cursor = 'not-allowed';
+            }
+            if (pmContinueBtn) {
+                pmContinueBtn.disabled = true;
+                pmContinueBtn.style.opacity = '0.5';
+                pmContinueBtn.style.cursor = 'not-allowed';
+            }
+
+            const yesCard = document.getElementById('pp-yes-card');
+            const noCard = document.getElementById('pp-no-card');
+            if (yesCard) {
+                yesCard.style.borderColor = '#e0e0e0';
+                yesCard.style.borderWidth = '2px';
+            }
+            if (noCard) {
+                noCard.style.borderColor = '#e0e0e0';
+                noCard.style.borderWidth = '2px';
+            }
+
+            document.getElementById('progressBarSimple').style.display = 'none';
+            document.getElementById('progressBarFull').style.display = 'none';
+
+            document.getElementById('results').classList.remove('active');
+            document.querySelectorAll('.question-section').forEach(q => q.classList.remove('active'));
+            document.getElementById('q1').classList.add('active');
+
+            updateProgress();
+        }
+
+        function goBackFromResults() {
+            window.scrollTo(0, 0);
+
+            document.getElementById('results').classList.remove('active');
+
+            if (answers.participants === 'single-holder') {
+                currentStep = 1;
+                document.getElementById('q1').classList.add('active');
+            } else if (answers.type === 'pm') {
+                currentStep = 3;
+                document.getElementById('q3-pm').classList.add('active');
+            } else if (answers.type === 'mix') {
+                currentStep = 3;
+                document.getElementById('q3-pm').classList.add('active');
+            } else if (answers.type === 'pp') {
+                currentStep = 3;
+                document.getElementById('q3-pp').classList.add('active');
+            } else {
+                currentStep = 2;
+                document.getElementById('q2').classList.add('active');
+            }
+
+            updateProgress();
+        }
+
+        function downloadPDF() {
+            var resultsDiv = document.getElementById('resultsContent');
+
+            if (!resultsDiv || resultsDiv.innerHTML.trim() === '') {
+                alert('No content to download. Please answer the questions first.');
+                return;
+            }
+
+            var buttons = document.querySelectorAll('button, .button-group');
+            buttons.forEach(function(btn) {
+                btn.style.visibility = 'hidden';
+            });
+
+            html2canvas(resultsDiv, {
+                scale: 2,
+                useCORS: true,
+                logging: false,
+                backgroundColor: '#ffffff',
+                windowWidth: 1200
+            }).then(function(canvas) {
+                buttons.forEach(function(btn) {
+                    btn.style.visibility = 'visible';
+                });
+
+                var imgData = canvas.toDataURL('image/jpeg', 1.0);
+                var imgWidth = 210;
+                var pageHeight = 297;
+                var imgHeight = canvas.height * imgWidth / canvas.width;
+                var heightLeft = imgHeight;
+                var position = 0;
+
+                var { jsPDF } = window.jspdf;
+                var pdf = new jsPDF('p', 'mm', 'a4');
+
+                pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+
+                while (heightLeft >= 0) {
+                    position = heightLeft - imgHeight;
+                    pdf.addPage();
+                    pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+                }
+
+                pdf.save('Capital_Increase_Document_Checklist.pdf');
+
+            }).catch(function(error) {
+                buttons.forEach(function(btn) {
+                    btn.style.visibility = 'visible';
+                });
+                console.error('Error:', error);
+                alert('Error generating PDF');
+            });
+        }
+
+    </script>
+</body>
+</html>
