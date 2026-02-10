@@ -1837,4 +1837,14 @@
                 pdf.save('Capital_Increase_Document_Checklist.pdf');
 
             }).catch(function(error) {
-                buttons.forEach(f
+                buttons.forEach(function(btn) {
+                    btn.style.visibility = 'visible';
+                });
+                console.error('Error:', error);
+                alert('Error generating PDF');
+            });
+        }
+
+    </script>
+</body>
+</html>
