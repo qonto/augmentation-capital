@@ -1570,76 +1570,94 @@
             `;
         }
 
-        function generateFondsTable() {
-            return `
-                <div style="margin: 32px 0;">
-                    <div style="background: white; border: 1px solid #E5E7EB; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-                        <div style="background: #6B7280; color: white; padding: 12px 20px;">
-                            <h4 style="margin: 0; font-size: 1em; font-weight: 600;">💼 Documents requis pour les fonds d'investissement</h4>
+function generateFondsTable() {
+    return `
+        <div style="margin: 32px 0;">
+            <div style="background: white; border: 1px solid #E5E7EB; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                <div style="background: #6B7280; color: white; padding: 12px 20px;">
+                    <h4 style="margin: 0; font-size: 1em; font-weight: 600;">💼 Documents requis pour les fonds d'investissement</h4>
+                </div>
+                <div style="padding: 20px;">
+
+                    <div style="background: white; border: 1px solid #E5E7EB; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 16px;">
+                        <div style="background: #3275C4; color: white; padding: 10px 16px;">
+                            <h4 style="margin: 0; font-size: 0.95em; font-weight: 600;">📋 Document requis pour tous les fonds d'investissement participants</h4>
                         </div>
-                        <div style="padding: 20px;">
-                            <div style="background: #E0E0E0; border-left: 5px solid #7E0F4C; padding: 12px; border-radius: 8px; margin-bottom: 16px;">
-                                <strong style="color: #7E0F4C; font-size: 0.95em;">🚫 IMPORTANT</strong>
-                                <p style="color: #7E0F4C; margin: 4px 0 0 0; font-size: 0.9em;">Les fonds d'investissement hors UE ne sont PAS acceptés</p>
+                        <div style="padding: 16px; background: white;">
+                            <div style="font-weight: 600; color: #000000; margin-bottom: 5px; display: flex; align-items: center; gap: 8px; font-size: 11px;">
+                                <span style="color: #000000; font-size: 1.2em;">✓</span>
+                                <span>Déclaration d'origine des fonds</span>
                             </div>
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start;">
-                                <!-- Colonne < 25% -->
-                                <div style="background: #fafbfc; padding: 16px; border-radius: 8px; border: 3px solid #D1D5DB;">
-                                    <div style="font-size: 0.95em; font-weight: 600; color: #475569; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #D1D5DB;">
-                                        Pour un fonds <strong>détenant &lt; 25%</strong> du capital après l'opération
-                                    </div>
-                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
-                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Prospectus du fonds (traduit en français)</div>
-                                    </div>
-                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
-                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Certificat d'immatriculation de la <strong>société de gestion</strong> (&lt; 3 mois, traduit en français)</div>
-                                    </div>
-                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
-                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Document officiel récent prouvant que la <strong>société de gestion</strong> n'est pas en procédure collective, faillite ou liquidation (daté du mois en cours ou du mois précédent)</div>
-                                    </div>
-                                    <div style="padding: 5px 0;">
-                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Pièce d'identité représentant société de gestion</div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Colonne ≥ 25% -->
-                                <div style="background: #fafbfc; padding: 16px; border-radius: 8px; border: 3px solid #6B7280;">
-                                    <div style="font-size: 0.95em; font-weight: 600; color: #475569; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #6B7280;">
-                                        Pour un fonds <strong>détenant ≥ 25%</strong> du capital après l'opération
-                                    </div>
-                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
-                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Prospectus du fonds (traduit en français)</div>
-                                    </div>
-                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
-                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Nom du gestionnaire</div>
-                                    </div>
-                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
-                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Certificat d'immatriculation de la <strong>société de gestion</strong> (&lt; 3 mois, traduit en français)</div>
-                                    </div>
-                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
-                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Document officiel récent prouvant que la <strong>société de gestion</strong> n'est pas en procédure collective, faillite ou liquidation (daté du mois en cours ou du mois précédent)</div>
-                                    </div>
-                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
-                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Preuve agrément société de gestion (AMF/UE)</div>
-                                    </div>
-                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
-                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Pièce d'identité représentant</div>
-                                    </div>
-                                    <div style="padding: 5px 0;">
-                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Preuve documentaire de l'origine des fonds</div>
-                                        <div style="color: #64748b; font-size: 11px; margin-top: 2px; margin-left: 20px;">
-                                            Document justifiant la provenance de l'argent investi (ex : comptes annuels, acte de cession d'actifs, notification de subvention etc.)
-                                            <br>
-                                            <a href="https://support-fr.qonto.com/hc/fr/articles/38738891662737-Quels-documents-peuvent-%C3%AAtre-fournis-comme-preuve-de-l-origine-des-fonds#h_01K4AXEVC8SX6778VWKBZTWE7M" target="_blank" style="color: #3275C4;">Voir quels documents justificatifs sont acceptés</a>
-                                        </div>
-                                    </div>
+                            <div style="color: #64748B; font-size: 11px; line-height: 1.4; margin-left: 26px;">
+                                Ce formulaire doit être complété et signé par <strong>chaque fonds d'investissement</strong> participant à l'opération (chaque fonds remplit son propre formulaire), quel que soit le pourcentage de détention post-augmentation de capital.
+                                <br>
+                                <a href="documents/declaration_origine_fonds_PM.pdf" download class="download-btn" style="font-size: 10px;">📥 Télécharger le formulaire</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: #E0E0E0; border-left: 5px solid #7E0F4C; padding: 12px; border-radius: 8px; margin-bottom: 16px;">
+                        <strong style="color: #7E0F4C; font-size: 0.95em;">🚫 IMPORTANT</strong>
+                        <p style="color: #7E0F4C; margin: 4px 0 0 0; font-size: 0.9em;">Les fonds d'investissement hors UE ne sont PAS acceptés</p>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start;">
+                        <!-- Colonne < 25% -->
+                        <div style="background: #fafbfc; padding: 16px; border-radius: 8px; border: 3px solid #D1D5DB;">
+                            <div style="font-size: 0.95em; font-weight: 600; color: #475569; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #D1D5DB;">
+                                Pour un fonds <strong>détenant &lt; 25%</strong> du capital après l'opération
+                            </div>
+                            <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Prospectus du fonds (traduit en français)</div>
+                            </div>
+                            <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Certificat d'immatriculation de la <strong>société de gestion</strong> (&lt; 3 mois, traduit en français)</div>
+                            </div>
+                            <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Document officiel récent prouvant que la <strong>société de gestion</strong> n'est pas en procédure collective, faillite ou liquidation (daté du mois en cours ou du mois précédent)</div>
+                            </div>
+                            <div style="padding: 5px 0;">
+                                <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Pièce d'identité représentant société de gestion</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Colonne ≥ 25% -->
+                        <div style="background: #fafbfc; padding: 16px; border-radius: 8px; border: 3px solid #6B7280;">
+                            <div style="font-size: 0.95em; font-weight: 600; color: #475569; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #6B7280;">
+                                Pour un fonds <strong>détenant ≥ 25%</strong> du capital après l'opération
+                            </div>
+                            <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Prospectus du fonds (traduit en français)</div>
+                            </div>
+                            <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Nom du gestionnaire</div>
+                            </div>
+                            <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Certificat d'immatriculation de la <strong>société de gestion</strong> (&lt; 3 mois, traduit en français)</div>
+                            </div>
+                            <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Document officiel récent prouvant que la <strong>société de gestion</strong> n'est pas en procédure collective, faillite ou liquidation (daté du mois en cours ou du mois précédent)</div>
+                            </div>
+                            <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Preuve agrément société de gestion (AMF/UE)</div>
+                            </div>
+                            <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Pièce d'identité représentant</div>
+                            </div>
+                            <div style="padding: 5px 0;">
+                                <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Preuve documentaire de l'origine des fonds</div>
+                                <div style="color: #64748b; font-size: 11px; margin-top: 2px; margin-left: 20px;">
+                                    Document justifiant la provenance de l'argent investi (ex : comptes annuels, acte de cession d'actifs, notification de subvention etc.)
+                                    <br>
+                                    <a href="https://support-fr.qonto.com/hc/fr/articles/38738891662737-Quels-documents-peuvent-%C3%AAtre-fournis-comme-preuve-de-l-origine-des-fonds#h_01K4AXEVC8SX6778VWKBZTWE7M" target="_blank" style="color: #3275C4;">Voir quels documents justificatifs sont acceptés</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            `;
-        }
+            </div>
+        </div>
+    `;
+}
 
         function generateAssociationsTable() {
             return `
