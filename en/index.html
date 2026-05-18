@@ -1516,74 +1516,92 @@
             `;
         }
 
-        function generateFondsTable() {
-            return `
-                <div style="margin: 32px 0;">
-                    <div style="background: white; border: 1px solid #E5E7EB; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-                        <div style="background: #6B7280; color: white; padding: 12px 20px;">
-                            <h4 style="margin: 0; font-size: 1em; font-weight: 600;">💼 Documents required for investment funds</h4>
-                        </div>
-                        <div style="padding: 20px;">
-                            <div style="background: #E0E0E0; border-left: 5px solid #7E0F4C; padding: 12px; border-radius: 8px; margin-bottom: 16px;">
-                                <strong style="color: #7E0F4C; font-size: 0.95em;">🚫 IMPORTANT</strong>
-                                <p style="color: #7E0F4C; margin: 4px 0 0 0; font-size: 0.9em;">Investment funds outside the EU are NOT accepted</p>
-                            </div>
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start;">
-                                <div style="background: #fafbfc; padding: 16px; border-radius: 8px; border: 3px solid #D1D5DB;">
-                                    <div style="font-size: 0.95em; font-weight: 600; color: #475569; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #D1D5DB;">
-                                        For a fund <strong>holding &lt; 25%</strong> of share capital after the operation
-                                    </div>
-                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
-                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Fund prospectus (translated into French)</div>
-                                    </div>
-                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
-                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Certificate of incorporation of the <strong>management company</strong> (< 3 months, translated into French)</div>
-                                    </div>
-                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
-                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Recent official document proving the <strong>management company</strong> is not subject to insolvency, bankruptcy or liquidation proceedings (dated current month or previous month)</div>
-                                    </div>
-                                    <div style="padding: 5px 0;">
-                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Proof of identity of the management company representative</div>
-                                    </div>
-                                </div>
+function generateFondsTable() {
+    return `
+        <div style="margin: 32px 0;">
+            <div style="background: white; border: 1px solid #E5E7EB; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                <div style="background: #6B7280; color: white; padding: 12px 20px;">
+                    <h4 style="margin: 0; font-size: 1em; font-weight: 600;">💼 Documents required for investment funds</h4>
+                </div>
+                <div style="padding: 20px;">
 
-                                <div style="background: #fafbfc; padding: 16px; border-radius: 8px; border: 3px solid #6B7280;">
-                                    <div style="font-size: 0.95em; font-weight: 600; color: #475569; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #6B7280;">
-                                        For a fund <strong>holding ≥ 25%</strong> of share capital after the operation
-                                    </div>
-                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
-                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Fund prospectus (translated into French)</div>
-                                    </div>
-                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
-                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Name of the fund manager</div>
-                                    </div>
-                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
-                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Certificate of incorporation of the <strong>management company</strong> (< 3 months, translated into French)</div>
-                                    </div>
-                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
-                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Recent official document proving the <strong>management company</strong> is not subject to insolvency, bankruptcy or liquidation proceedings (dated current month or previous month)</div>
-                                    </div>
-                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
-                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Proof of management company authorisation (AMF / EU regulator)</div>
-                                    </div>
-                                    <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
-                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Proof of identity of the representative</div>
-                                    </div>
-                                    <div style="padding: 5px 0;">
-                                        <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Documentary proof of source of funds</div>
-                                        <div style="color: #64748b; font-size: 11px; margin-top: 2px; margin-left: 20px;">
-                                            Document evidencing the origin of the invested funds (e.g. annual accounts, asset transfer deed, grant notification, etc.)
-                                            <br>
-                                            <a href="https://support-fr.qonto.com/hc/en-us/articles/38738891662737-What-documents-can-be-provided-as-proof-of-origin-of-funds#h_01K59MEBMCKGX1M0NWH9SP5RVP" target="_blank" style="color: #3275C4;">See which supporting documents are accepted</a>
-                                        </div>
-                                    </div>
+                    <div style="background: white; border: 1px solid #E5E7EB; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 16px;">
+                        <div style="background: #3275C4; color: white; padding: 10px 16px;">
+                            <h4 style="margin: 0; font-size: 0.95em; font-weight: 600;">📋 Document required for all participating investment funds</h4>
+                        </div>
+                        <div style="padding: 16px; background: white;">
+                            <div style="font-weight: 600; color: #000000; margin-bottom: 5px; display: flex; align-items: center; gap: 8px; font-size: 11px;">
+                                <span style="color: #000000; font-size: 1.2em;">✓</span>
+                                <span>Declaration of source of funds</span>
+                            </div>
+                            <div style="color: #64748B; font-size: 11px; line-height: 1.4; margin-left: 26px;">
+                                This form must be completed and signed by <strong>each investment fund</strong> participating in the transaction (each fund completes its own form), regardless of the percentage of share capital held after the capital increase.
+                                <br>
+                                <a href="documents/declaration_origine_fonds_PM.pdf" download class="download-btn" style="font-size: 10px;">📥 Download the form</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: #E0E0E0; border-left: 5px solid #7E0F4C; padding: 12px; border-radius: 8px; margin-bottom: 16px;">
+                        <strong style="color: #7E0F4C; font-size: 0.95em;">🚫 IMPORTANT</strong>
+                        <p style="color: #7E0F4C; margin: 4px 0 0 0; font-size: 0.9em;">Investment funds outside the EU are NOT accepted</p>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start;">
+                        <div style="background: #fafbfc; padding: 16px; border-radius: 8px; border: 3px solid #D1D5DB;">
+                            <div style="font-size: 0.95em; font-weight: 600; color: #475569; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #D1D5DB;">
+                                For a fund <strong>holding &lt; 25%</strong> of share capital after the operation
+                            </div>
+                            <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Fund prospectus (translated into French)</div>
+                            </div>
+                            <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Certificate of incorporation of the <strong>management company</strong> (< 3 months, translated into French)</div>
+                            </div>
+                            <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Recent official document proving the <strong>management company</strong> is not subject to insolvency, bankruptcy or liquidation proceedings (dated current month or previous month)</div>
+                            </div>
+                            <div style="padding: 5px 0;">
+                                <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Proof of identity of the management company representative</div>
+                            </div>
+                        </div>
+
+                        <div style="background: #fafbfc; padding: 16px; border-radius: 8px; border: 3px solid #6B7280;">
+                            <div style="font-size: 0.95em; font-weight: 600; color: #475569; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #6B7280;">
+                                For a fund <strong>holding ≥ 25%</strong> of share capital after the operation
+                            </div>
+                            <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Fund prospectus (translated into French)</div>
+                            </div>
+                            <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Name of the fund manager</div>
+                            </div>
+                            <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Certificate of incorporation of the <strong>management company</strong> (< 3 months, translated into French)</div>
+                            </div>
+                            <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Recent official document proving the <strong>management company</strong> is not subject to insolvency, bankruptcy or liquidation proceedings (dated current month or previous month)</div>
+                            </div>
+                            <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Proof of management company authorisation (AMF / EU regulator)</div>
+                            </div>
+                            <div style="padding: 5px 0; border-bottom: 1px solid #f1f5f9;">
+                                <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Proof of identity of the representative</div>
+                            </div>
+                            <div style="padding: 5px 0;">
+                                <div style="font-weight: 500; color: #000000; margin-bottom: 1px; font-size: 11px;">✓ Documentary proof of source of funds</div>
+                                <div style="color: #64748b; font-size: 11px; margin-top: 2px; margin-left: 20px;">
+                                    Document evidencing the origin of the invested funds (e.g. annual accounts, asset transfer deed, grant notification, etc.)
+                                    <br>
+                                    <a href="https://support-fr.qonto.com/hc/en-us/articles/38738891662737-What-documents-can-be-provided-as-proof-of-origin-of-funds#h_01K59MEBMCKGX1M0NWH9SP5RVP" target="_blank" style="color: #3275C4;">See which supporting documents are accepted</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            `;
-        }
+            </div>
+        </div>
+    `;
+}
 
         function generateAssociationsTable() {
             return `
